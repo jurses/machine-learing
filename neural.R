@@ -96,3 +96,11 @@ plot(test$medv, pr.nn_, col='red', main='Real vs predicted NN', pch=18, cex=0.7)
 points(test$medv, pr.lm, col='blue', pch=18, cex=0.7)
 abline(0, 1, lwd=2)
 legend('bottomright', legend=c('NN', 'LM'), pch=18, col=c('red', 'blue'))
+
+# Implementación de una rápida valoración cruzada usando un bucle para la red neuronal y
+# la función cv.glm() en la librería boot.
+library(boot)
+set.seed(200)
+lm.fit <- glm(medv~.,data=data)
+# Esta función calcula el estimado error de predicción k-fold validación cruzada para el modelo linear generalizado.
+cv.glm(data, lm.fit, K=10)$delta[1]
